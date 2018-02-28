@@ -10,21 +10,36 @@ class LinkedList:
     def __init__(self):
         self.head = None
 
-    def insert(self, element):
+    def insert(self, head, element):
 
-        if not self.head:
-            self.head = Node(element)
-            return
+        if not head:
+            head = Node(element)
+            return head
 
-        temp = self.head
+        temp = head
 
         while temp.next is not None:
             temp = temp.next
 
         temp.next = Node(element)
 
+        return head
+
     def insert_after(self, after, element):
         pass
+
+    def contains(self, head, key):
+        if not head:
+            raise Exception('LL is Empty')
+
+        temp = head
+
+        while temp is not None:
+
+            if key in temp.data:
+                return temp.data
+
+            temp = temp.next
 
     def reverse_using_iteration(self):
         prev = None
@@ -59,18 +74,26 @@ class LinkedList:
 
         print
 
+    def rotate(self, head, k, len):
+        count = 1
+        n = k % len
 
-def main():
-    data = [1, 2, 3, 4, 5]
-    l = LinkedList()
+        current = head
 
-    for each in data:
-        l.insert(each)
+        while count < n and current is not None:
+            current = current.next
+            count += 1
 
-    l.print_list(l.head)
-    # l.reverse_using_iteration()
-    new_head = l.reverse(None, l.head)
-    l.print_list(new_head)
+        if current is None:
+            return
 
+        kthnode = current
 
-main()
+        while current.next is not None:
+            current = current.next
+
+        current.next = head
+        head = kthnode.next
+        kthnode.next = None
+
+        return head
