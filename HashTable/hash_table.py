@@ -19,7 +19,7 @@ class HashTable(object):
         else:
             next_slot = self.rehash(hash_val, len(self.slots))
             while self.slots[next_slot] and self.slots[next_slot] != key:
-                next_slot = self.rehash(hash_val, len(self.slots))
+                next_slot = self.rehash(next_slot, len(self.slots))
 
             if not self.slots[next_slot]:
                 self.slots[next_slot] = key
@@ -40,7 +40,7 @@ class HashTable(object):
                 found = True
                 data = self.data[position]
             else:
-                position = self.rehash(key, len(self.slots))
+                position = self.rehash(position, len(self.slots))
 
                 if position == start_slot:
                     stop = True

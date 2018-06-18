@@ -76,11 +76,6 @@ class Queue(object):
         self.printQueue(front.next)
 
 
-class QueueUsingDLL(object):
-    def __init__(self):
-        pass
-
-
 def main():
     # q = QueueUsingStack()
     #
