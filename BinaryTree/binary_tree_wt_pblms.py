@@ -1,4 +1,5 @@
 import sys
+import json
 from collections import OrderedDict
 
 """
@@ -650,6 +651,60 @@ class BinaryTreeUtil(object):
 
         return self.prev
 
+    def findMaxPerfectTree(self, root, max_size=0):
+        if not root:
+            return max_size
+
+        if not root.left or not root.right:
+            return 0
+
+        ls = self.findMaxPerfectTree(root.left, max_size+1)
+        rs = self.findMaxPerfectTree(root.right, max_size+1)
+
+        return 1 + max(ls, rs)
+
+    def serialize(self, root):
+
+        if not root:
+            return []
+
+        queue = [root]
+        result = [root.data]
+
+        while len(queue) > 0:
+            node = queue.pop(0)
+
+            if node.left:
+                queue.append(node.left)
+                result.append(node.left.data)
+            else:
+                result.append(None)
+
+            if node.right:
+                queue.append(node.right)
+                result.append(node.right.data)
+            else:
+                result.append(None)
+
+        for i in range(len(result)-1, 0, -1):
+            if result[i]:
+                break
+            result.pop(i)
+
+        return result
+
+    def _deserailize(self, root, element, i=0):
+
+        pass
+
+    def deserialize(self, string):
+        data = json.loads(string)
+
+        root = Node(data[0])
+
+        for i in range(1, len(data)):
+
+
 
 #
 # class DLL(object):
@@ -697,35 +752,47 @@ if __name__ == '__main__':
     # root.right.left = Node(10)
     # root.right.right = Node(40)
 
-    root = Node(30)
+    # root = Node(30)
+    #
+    # root.left = Node(20)
+    # root.right = Node(50)
+    #
+    # root.right.left = Node(40)
+    # root.right.right = Node(60)
+    #
+    # root.right.right.right = Node(70)
 
-    root.left = Node(20)
-    root.right = Node(50)
 
-    root.right.left = Node(40)
-    root.right.right = Node(60)
 
-    root.right.right.right = Node(70)
+    root = Node(1)
+
+    root.left = Node(2)
+    root.right = Node(3)
+
+    root.right.left = Node(4)
+    root.right.right = Node(5)
+
 
     # elements = [1, 3, 4, 6, 8]
     bu = BinaryTreeUtil()
+    print(bu.deserialize(json.dumps(bu.serialize(root))))
 
     # for each in elements:
     #     bu.insert(root, each)
 
     # bu.in_order(root)
-    print '\n'
+    # print '\n'
     # print bu.findkthlargest(root, 0, 0)
-    h = bu.flattenDLL(root)
-
-    while h is not None:
-        print h.data,
-
-        if h.left:
-            print h.left.data,
-
-        h = h.right
-        print
+    # h = bu.flattenDLL(root)
+    #
+    # while h is not None:
+    #     print h.data,
+    #
+    #     if h.left:
+    #         print h.left.data,
+    #
+    #     h = h.right
+    #     print
 
     # while h:
     #     print h.data,
@@ -763,6 +830,7 @@ if __name__ == '__main__':
     # bu.in_order(root)
     # print(bu.vertical_sum(root))
     # print bu.lca(root, 30, 25).data
+    # print(bu.findMaxPerfectTree(root))
 
 
 """
