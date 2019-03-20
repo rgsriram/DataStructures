@@ -10,7 +10,7 @@ import sys
 #
 
 def addNumber(number, highers, lowers):
-    if (len(lowers) <= 0 or number < lowers[0]):
+    if len(lowers) <= 0 or number < lowers[0]:
         lowers.append(number)
         heapq._heapify_max(lowers)
     else:
