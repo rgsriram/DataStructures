@@ -124,7 +124,7 @@ def main():
     # print("deleting mark waugh: ", trie.delete("mark waugh"))
     # print("mark waugh is present: ", trie.complete_search("mark waugh"))
 
-    print("Partial search", trie.prefix_search("sa"))
+    print("Partial search", trie.prefix_search("s"))
 
     # print(trie.print_trie(trie.root))
 
